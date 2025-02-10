@@ -27,8 +27,10 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libltdl-dev libnsl-dev
 
-      - name: Install PAR::Packer with verbose logging
-        run: cpanm --notest --verbose PAR::Packer 2>&1 | tee cpanm.log
+          #- name: Install PAR::Packer with verbose logging
+          #  run: cpanm --notest --verbose PAR::Packer 2>&1 | tee cpanm.log
+      - name: Install PAR::Packer
+        run: cpanm --notest PAR::Packer
 
           # - name: Upload cpanm log
           #   uses: actions/upload-artifact@v4
@@ -37,9 +39,7 @@ jobs:
           #     path: cpanm.log
 
       - name: Compile Perl Script to Binary
-        run: pp -o sbatch-script-generator sbatchGenerator.pl
-        # Replace 'my_script.pl' with your script name and
-        # 'my_binary_executable' with your desired output binary name
+        run: pp -M Tie::IxHash -o sbatch-script-generator sbatchGenerator.pl
 
       - name: Upload Binary Artifact
         uses: actions/upload-artifact@v4
