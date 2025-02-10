@@ -21,7 +21,7 @@ jobs:
 
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y libltdl-dev
+        run: sudo apt-get update && sudo apt-get install -y libltdl-dev libnsl-dev
 
       - name: Install PAR::Packer with verbose logging
         run: cpanm --notest --verbose PAR::Packer 2>&1 | tee cpanm.log
