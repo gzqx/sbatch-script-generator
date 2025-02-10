@@ -8,7 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
 
     steps:
       - name: Checkout code
@@ -21,6 +24,7 @@ jobs:
 
 
       - name: Install system dependencies
+        if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libltdl-dev libnsl-dev
 
       - name: Install PAR::Packer with verbose logging
@@ -40,6 +44,6 @@ jobs:
       - name: Upload Binary Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: perl-binary
+          name: perl-binary-${{ runner.os }}
           path: sbatch-script-generator
 
