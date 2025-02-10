@@ -1,0 +1,35 @@
+name: Build Binary
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.32'  # Adjust the Perl version if needed
+
+      - name: Install PAR::Packer
+        run: cpanm --notest PAR::Packer
+
+      - name: Compile Perl Script to Binary
+        run: pp -o my_binary_executable my_script.pl
+        # Replace 'my_script.pl' with your script name and
+        # 'my_binary_executable' with your desired output binary name
+
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: perl-binary
+          path: my_binary_executable
+
