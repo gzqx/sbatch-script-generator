@@ -23,7 +23,7 @@ jobs:
         run: cpanm --notest PAR::Packer
 
       - name: Compile Perl Script to Binary
-        run: pp -o my_binary_executable my_script.pl
+        run: pp -o sbatch-script-generator sbatchGenerator.pl
         # Replace 'my_script.pl' with your script name and
         # 'my_binary_executable' with your desired output binary name
 
