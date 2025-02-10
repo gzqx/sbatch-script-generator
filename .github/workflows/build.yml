@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
@@ -28,7 +28,7 @@ jobs:
         # 'my_binary_executable' with your desired output binary name
 
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: perl-binary
           path: my_binary_executable
