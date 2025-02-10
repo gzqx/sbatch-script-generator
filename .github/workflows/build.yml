@@ -19,6 +19,9 @@ jobs:
         with:
           perl-version: '5.32'  # Adjust the Perl version if needed
 
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libltdl-dev
+
       - name: Install PAR::Packer
         run: cpanm --notest PAR::Packer
 
