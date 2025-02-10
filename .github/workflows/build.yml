@@ -26,11 +26,11 @@ jobs:
       - name: Install PAR::Packer with verbose logging
         run: cpanm --notest --verbose PAR::Packer 2>&1 | tee cpanm.log
 
-      - name: Upload cpanm log
-        uses: actions/upload-artifact@v4
-        with:
-          name: cpanm-log
-          path: cpanm.log
+          # - name: Upload cpanm log
+          #   uses: actions/upload-artifact@v4
+          #   with:
+          #     name: cpanm-log
+          #     path: cpanm.log
 
       - name: Compile Perl Script to Binary
         run: pp -o sbatch-script-generator sbatchGenerator.pl
@@ -41,5 +41,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: perl-binary
-          path: my_binary_executable
+          path: sbatch-script-generator
 
