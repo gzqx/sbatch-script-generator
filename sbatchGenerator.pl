@@ -6,11 +6,12 @@ use YAML::Tiny;
 use Tie::IxHash;
 
 # Define SBATCH parameters with default values and prompt messages.
+# Tie assures the hash will be outputted as exactly following order
 tie my %params, 'Tie::IxHash', (
     'job-name'  => { default => 'my_job',         prompt => "Enter job name" },
     account     => { default => 'my_account',         prompt => "Enter account name" },
     partition     => { default => 'vera',         prompt => "Enter partition (system) used" },
-    time      => { default => '01:00:00',         prompt => "Enter time limit (hh:mm:ss)" },
+    time      => { default => '01:00:00',         prompt => "Enter time limit (hh:mm:ss/d-hh:mm:ss)" },
     ntasks    => { default => 32,                prompt => "Enter number of tasks to be run in parallel" },
     output    => { default => 'job_output.out',   prompt => "Enter output file name" },
     error     => { default => 'job_error.err',    prompt => "Enter error file name" },
@@ -136,3 +137,57 @@ if ($config_file) {
     print "Configuration saved to '$config_file'.\n";
 }
 
+
+__END__
+
+=head1 SBATCH Script Generator
+
+sbatchGenerator.pl - Generate script for running with sbatch
+
+=head1 SYNOPSIS
+
+Generate script with a configuration file I<config.yaml>:
+
+    sbatchGenerator.pl --config=config.yaml
+
+Start interactive configuration:
+
+    sbatchGenerator.pl 
+
+Start interactive configuration with some default parameter changed (will be overridden if B<--config> is also used)
+
+    sbatchGenerator.pl --[job-name|account|partition|time|ntasks|output|error]==[ultimate-question|earth|ape|10my|1|42|Vogons]
+
+Start interactive configuration with a module file:
+    
+    sbatchGenerator.pl --module_file=module.sh
+
+=head1 DESCRIPTION
+
+This script helps you config environment, find modules, and generate a sbatch script.
+
+=head1 OPTIONS
+
+=over
+
+=item B<--config>=I<path-to-file>
+
+Specifies the configuration file (yaml format) to be used. If no file is provided, the script will start with prompting questions and generate one in the end.
+
+Note: It will always override  parameters provided as flag B<--[sbatch options]> when running the script.
+
+=item B<--[sbatch options]>=I<value>
+
+It accepts I<job-name>, I<account>, I<partition>, I<time>, I<ntasks>, I<output>, I<error>
+
+=item B<--module_file>=I<path-to-file>
+
+Allows you to specify a module file that could contain modules and other commands (e.g. activating virtualenv). If not provided, the script will ask you if you want to interactively create one.
+
+=back
+
+=head1 BINARY
+
+If you access this code from github, there is compiled version for Linux and MacOS in Action page.
+
+=cut
