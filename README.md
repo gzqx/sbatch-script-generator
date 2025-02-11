@@ -14,7 +14,7 @@ Start interactive configuration:
 
 Start interactive configuration with some default parameter changed (will be overridden if **--config** is also used)
 
-    sbatchGenerator.pl --[job-name|account|partition|time|ntasks|output|error]==[ultimate-question|earth|ape|10my|1|42|Vogons]
+    sbatchGenerator.pl --[job-name|account|partition|time|ntasks|output|error]=[ultimate-question|earth|ape|10my|1|42|Vogons]
 
 Start interactive configuration with a module file:
 
